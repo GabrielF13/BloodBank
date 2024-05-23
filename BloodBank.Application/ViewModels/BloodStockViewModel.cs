@@ -1,9 +1,4 @@
 ﻿using BloodBank.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BloodBank.Application.ViewModels
 {
@@ -18,8 +13,8 @@ namespace BloodBank.Application.ViewModels
         }
 
         public int Id { get; set; }
-        public BloodType BloodType { get;  set; }
-        public RHFactor RhFactor { get;  set; }
-        public int QuantityMl { get;  set; }
+        public BloodType BloodType { get; set; }
+        public RHFactor RhFactor { get; set; }
+        public int QuantityMl { get; set; }
     }
 }

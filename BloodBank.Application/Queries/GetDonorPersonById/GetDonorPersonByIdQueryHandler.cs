@@ -8,6 +8,11 @@ namespace BloodBank.Application.Queries.GetDonorPersonById
     {
         private readonly IDonorPersonRepository _repository;
 
+        public GetDonorPersonByIdQueryHandler(IDonorPersonRepository repository)
+        {
+            _repository = repository;
+        }
+
         public async Task<DonorPersonViewModel> Handle(GetDonorPersonByIdQuery request, CancellationToken cancellationToken)
         {
             try
@@ -35,7 +40,6 @@ namespace BloodBank.Application.Queries.GetDonorPersonById
             {
                 throw ex;
             }
-            
         }
     }
 }

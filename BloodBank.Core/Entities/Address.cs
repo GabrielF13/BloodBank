@@ -13,9 +13,9 @@
 
         public int DonorId { get; private set; }
         public string PublicPlace { get; private set; }
-        public string City{ get; private set; }
+        public string City { get; private set; }
         public string State { get; private set; }
         public string ZipCode { get; private set; }
-        public DonorPerson DonorPerson{ get; private set; }
+        public DonorPerson DonorPerson { get; private set; }
     }
 }

@@ -1,7 +1,6 @@
 using BloodBank.Application.Queries.GetAllDonorPersons;
 using BloodBank.Core.Repositories;
 using BloodBank.Infrastructure.Persistence;
-using BloodBank.Infrastructure.Persistence.Configurations;
 using BloodBank.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

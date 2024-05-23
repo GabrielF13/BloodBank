@@ -1,11 +1,5 @@
 ﻿using BloodBank.Core.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BloodBank.Application.Commands.DeleteDonorPerson
 {
@@ -22,7 +16,9 @@ namespace BloodBank.Application.Commands.DeleteDonorPerson
         {
             var donorPerson = _repository.GetByIdAsync(request.Id).Result;
 
-            await _repository.DeleteAsync(donorPerson);
+            donorPerson.Delete(false);
+
+            await _repository.SaveChangesAsync();
 
             return Unit.Value;
         }

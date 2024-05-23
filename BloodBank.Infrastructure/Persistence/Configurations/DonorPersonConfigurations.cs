@@ -1,12 +1,6 @@
 ﻿using BloodBank.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BloodBank.Infrastructure.Persistence.Configurations
 {
@@ -25,9 +19,8 @@ namespace BloodBank.Infrastructure.Persistence.Configurations
 
             builder.HasOne(d => d.Address)
                .WithOne(a => a.DonorPerson)
-               .HasForeignKey<Address>(a => a.DonorId) 
+               .HasForeignKey<Address>(a => a.DonorId)
                .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }
