@@ -10,8 +10,6 @@ namespace BloodBank.Core.Repositories
 
         Task AddAsync(DonorPerson donorPerson);
 
-        Task DeleteAsync(DonorPerson donorPerson);
-
         Task SaveChangesAsync();
     }
 }

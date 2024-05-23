@@ -18,6 +18,7 @@ var connectionString = builder.Configuration.GetConnectionString("BloodBankCs");
 builder.Services.AddDbContext<BloodBankDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IDonorPersonRepository, DonorPersonRepository>();
+builder.Services.AddScoped<IBloodStockRepository, BloodStockRepository>();
 
 builder.Services.AddMediatR(typeof(GetAllDonorPersonsQuery));
 

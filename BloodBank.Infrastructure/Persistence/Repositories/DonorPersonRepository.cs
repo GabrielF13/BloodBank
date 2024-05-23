@@ -13,18 +13,6 @@ namespace BloodBank.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(DonorPerson donorPerson)
-        {
-            await _context.DonorPerson.AddAsync(donorPerson);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(DonorPerson donorPerson)
-        {
-            _context.DonorPerson.Remove(donorPerson);
-            await _context.SaveChangesAsync();
-        }
-
         public async Task<List<DonorPerson>> GetAllAsync()
         {
             return await _context.DonorPerson.ToListAsync();
@@ -33,6 +21,12 @@ namespace BloodBank.Infrastructure.Persistence.Repositories
         public async Task<DonorPerson> GetByIdAsync(int id)
         {
             return await _context.DonorPerson.SingleOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task AddAsync(DonorPerson donorPerson)
+        {
+            await _context.DonorPerson.AddAsync(donorPerson);
+            await _context.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()

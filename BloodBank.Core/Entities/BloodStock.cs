@@ -14,5 +14,17 @@ namespace BloodBank.Core.Entities
         public BloodType BloodType { get; private set; }
         public RHFactor RhFactor { get; private set; }
         public int QuantityMl { get; private set; }
+
+        public void Update(BloodType bloodType, RHFactor rHFactor, int quantityMl)
+        {
+            BloodType = bloodType;
+            RhFactor = rHFactor;
+            QuantityMl = quantityMl;
+        }
+
+        public void Donate(int quantityMl)
+        {
+            QuantityMl += quantityMl;
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public enum BloodType
     {
-        A,
+        A = 1,
         B,
         AB,
         O
