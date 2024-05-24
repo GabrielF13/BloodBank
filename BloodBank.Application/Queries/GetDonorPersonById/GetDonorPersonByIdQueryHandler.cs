@@ -15,8 +15,6 @@ namespace BloodBank.Application.Queries.GetDonorPersonById
 
         public async Task<DonorPersonViewModel> Handle(GetDonorPersonByIdQuery request, CancellationToken cancellationToken)
         {
-            try
-            {
                 var person = await _repository.GetByIdAsync(request.Id);
 
                 if (person == null)
@@ -35,11 +33,6 @@ namespace BloodBank.Application.Queries.GetDonorPersonById
                     );
 
                 return donorPersonviewModel;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
     }
 }

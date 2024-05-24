@@ -1,8 +1,11 @@
 ﻿using BloodBank.Application.Commands.CreateBloodStock;
+using BloodBank.Application.Queries.GetAllBloodStock;
+using BloodBank.Application.Queries.GetBloodStockByBloodType;
+using BloodBank.Application.Queries.GetBloodStockById;
+using BloodBank.Core.Enums;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Runtime.InteropServices;
 
 namespace BloodBank.API.Controllers
 {
@@ -20,7 +23,31 @@ namespace BloodBank.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            var getAllBloodStock = new GetAllBloodStockQuery();
+
+            var viewModel = _mediator.Send(getAllBloodStock);
+
+            return Ok(viewModel.Result);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var query = new GetBloodStockByIdQuery(id);
+
+            var viewModel = await _mediator.Send(query);
+
+            return Ok(viewModel);
+        }
+
+        [HttpGet("getByBloodTyp/{bloodType}")]
+        public async Task<IActionResult> GetByBloodType(BloodType bloodType)
+        {
+            var query = new GetBloodStockByBloodTypeQuery(bloodType);
+
+            var viewModel = await _mediator.Send(query);
+
+            return Ok(viewModel);
         }
 
         [HttpPost]

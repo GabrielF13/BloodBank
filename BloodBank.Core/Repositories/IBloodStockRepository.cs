@@ -1,4 +1,5 @@
 ﻿using BloodBank.Core.Entities;
+using BloodBank.Core.Enums;
 
 namespace BloodBank.Core.Repositories
 {
@@ -7,6 +8,8 @@ namespace BloodBank.Core.Repositories
         Task<List<BloodStock>> GetAllAsync();
 
         Task<BloodStock> GetByIdAsync(int id);
+
+        Task<List<BloodStock>> GetByBloodTypeAsync(BloodType bloodType);
 
         Task AddAsync(BloodStock bloodStock);
 

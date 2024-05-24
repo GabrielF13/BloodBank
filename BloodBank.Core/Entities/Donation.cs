@@ -13,5 +13,10 @@
         public DateTime DateDonation { get; private set; }
         public int QuantityMl { get; private set; }
         public DonorPerson DonorPerson { get; private set; }
+
+        public void Update(int quantityMl)
+        {
+            QuantityMl += quantityMl;
+        }
     }
 }
