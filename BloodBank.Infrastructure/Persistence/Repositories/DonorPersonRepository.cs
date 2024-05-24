@@ -23,10 +23,10 @@ namespace BloodBank.Infrastructure.Persistence.Repositories
             return await _context.DonorPerson.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task AddAsync(DonorPerson donorPerson)
+        public async Task<int> AddAsync(DonorPerson donorPerson)
         {
             await _context.DonorPerson.AddAsync(donorPerson);
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()
