@@ -22,10 +22,7 @@ namespace BloodBank.Application.Commands.UpdateDonate
         {
             var donate = await _repository.GetById(request.Id);
 
-            if (donate == null)
-                return null
-
-
+            return Unit.Value;
         }
     }
 }
