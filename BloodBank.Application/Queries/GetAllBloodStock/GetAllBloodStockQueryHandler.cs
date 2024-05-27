@@ -15,7 +15,7 @@ namespace BloodBank.Application.Queries.GetAllBloodStock
 
         public async Task<List<BloodStockViewModel>> Handle(GetAllBloodStockQuery request, CancellationToken cancellationToken)
         {
-            var bloodStocks = await _repository.GetAllAsync();  
+            var bloodStocks = await _repository.GetAllAsync();
 
             var bloodStockViewModel = bloodStocks.Select(
                 p => new BloodStockViewModel(p.BloodType, p.RhFactor, p.QuantityMl, p.Id)).ToList();

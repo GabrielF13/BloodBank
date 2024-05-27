@@ -1,11 +1,6 @@
 ﻿using BloodBank.Core.Entities;
 using BloodBank.Core.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BloodBank.Application.Commands.CreateDonate
 {

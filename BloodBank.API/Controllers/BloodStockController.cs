@@ -5,7 +5,6 @@ using BloodBank.Application.Queries.GetBloodStockById;
 using BloodBank.Core.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
 
 namespace BloodBank.API.Controllers
 {

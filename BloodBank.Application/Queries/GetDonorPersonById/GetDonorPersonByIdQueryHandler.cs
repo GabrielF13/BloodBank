@@ -15,24 +15,24 @@ namespace BloodBank.Application.Queries.GetDonorPersonById
 
         public async Task<DonorPersonViewModel> Handle(GetDonorPersonByIdQuery request, CancellationToken cancellationToken)
         {
-                var person = await _repository.GetByIdAsync(request.Id);
+            var person = await _repository.GetByIdAsync(request.Id);
 
-                if (person == null)
-                    return null;
+            if (person == null)
+                return null;
 
-                var donorPersonviewModel = new DonorPersonViewModel
-                    (
-                        person.Id,
-                        person.FullName,
-                        person.Email,
-                        person.BirthDate,
-                        person.Gender,
-                        person.Weight,
-                        person.BloodType,
-                        person.RhFactor
-                    );
+            var donorPersonviewModel = new DonorPersonViewModel
+                (
+                    person.Id,
+                    person.FullName,
+                    person.Email,
+                    person.BirthDate,
+                    person.Gender,
+                    person.Weight,
+                    person.BloodType,
+                    person.RhFactor
+                );
 
-                return donorPersonviewModel;
+            return donorPersonviewModel;
         }
     }
 }

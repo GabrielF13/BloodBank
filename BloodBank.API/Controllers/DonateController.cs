@@ -1,9 +1,7 @@
 ﻿using BloodBank.Application.Commands.CreateDonate;
 using BloodBank.Application.Queries.GetAllDonate;
-using BloodBank.Application.Queries.GetAllDonorPersons;
 using BloodBank.Application.Queries.GetDonateById;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloodBank.API.Controllers
