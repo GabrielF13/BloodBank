@@ -19,6 +19,7 @@ builder.Services.AddDbContext<BloodBankDbContext>(options => options.UseSqlServe
 
 builder.Services.AddScoped<IDonorPersonRepository, DonorPersonRepository>();
 builder.Services.AddScoped<IBloodStockRepository, BloodStockRepository>();
+builder.Services.AddScoped<IDonateRepository, DonationRepository>();
 
 builder.Services.AddMediatR(typeof(GetAllDonorPersonsQuery));
 

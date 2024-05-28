@@ -44,6 +44,9 @@ namespace BloodBank.API.Controllers
         {
             var id = await _mediator.Send(command);
 
+            if (id == 0)
+                return BadRequest();
+
             return CreatedAtAction(nameof(GetById), new { id }, command);
         }
 

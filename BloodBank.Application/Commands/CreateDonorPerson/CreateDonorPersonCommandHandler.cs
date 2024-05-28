@@ -17,6 +17,11 @@ namespace BloodBank.Application.Commands.CreateDonorPerson
         {
             var donorPerson = new DonorPerson(request.FullName, request.Email, request.BirthDate, request.Gender, request.Weight, request.BloodType, request.RhFactor);
 
+            var emailExists = await _repository.GetByEmailAsync(donorPerson.Email);
+
+            if (emailExists.Id > 0)
+                return 0;
+
             await _repository.AddAsync(donorPerson);
 
             return donorPerson.Id;

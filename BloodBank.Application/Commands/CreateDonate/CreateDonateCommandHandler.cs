@@ -19,8 +19,22 @@ namespace BloodBank.Application.Commands.CreateDonate
         {
             var person = await _personRepository.GetByIdAsync(request.DonorPersonId);
 
-            if (person == null)
+            if (person == null || person.BirthDate.Year >= DateTime.Now.AddYears(-18).Year || person.Weight < 50)
+                    return 0;
+
+            var lastDonate = await _donateRepository.GetById(person.Id);
+
+            if (lastDonate != null &&
+                ((person.Gender.Equals("masculino", StringComparison.OrdinalIgnoreCase) && lastDonate.DateDonation >= DateTime.Now.AddDays(-90)) ||
+                (person.Gender.Equals("feminino", StringComparison.OrdinalIgnoreCase) && lastDonate.DateDonation >= DateTime.Now.AddDays(-60))))
+            {
                 return 0;
+            }
+
+            if (request.QuantityMl > 420 || request.QuantityMl < 470)
+            {
+                return 0;
+            }
 
             var donate = new Donation(person.Id, request.QuantityMl);
 

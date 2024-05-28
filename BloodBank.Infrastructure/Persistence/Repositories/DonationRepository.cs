@@ -20,7 +20,12 @@ namespace BloodBank.Infrastructure.Persistence.Repositories
 
         public async Task<Donation> GetById(int id)
         {
-            return _context.Donatiton.FirstOrDefault(d => d.Id == id);
+            return await _context.Donatiton.FirstOrDefaultAsync(d => d.Id == id);
+        }
+
+        public async Task<Donation> GetByDonorId(int donorId)
+        {
+            return await _context.Donatiton.FirstOrDefaultAsync(d => d.DonorId == donorId);
         }
 
         public async Task AddAsync(Donation donation)

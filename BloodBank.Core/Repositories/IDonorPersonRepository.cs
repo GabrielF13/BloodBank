@@ -8,6 +8,8 @@ namespace BloodBank.Core.Repositories
 
         Task<DonorPerson> GetByIdAsync(int id);
 
+        Task<DonorPerson> GetByEmailAsync(string email);
+
         Task AddAsync(DonorPerson donorPerson);
 
         Task SaveChangesAsync();
