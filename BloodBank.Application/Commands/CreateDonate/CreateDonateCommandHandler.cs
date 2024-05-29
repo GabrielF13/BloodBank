@@ -20,7 +20,7 @@ namespace BloodBank.Application.Commands.CreateDonate
             var person = await _personRepository.GetByIdAsync(request.DonorPersonId);
 
             if (person == null || person.BirthDate.Year >= DateTime.Now.AddYears(-18).Year || person.Weight < 50)
-                    return 0;
+                return 0;
 
             var lastDonate = await _donateRepository.GetById(person.Id);
 
