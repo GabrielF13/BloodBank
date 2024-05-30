@@ -1,9 +1,10 @@
-﻿using BloodBank.Infrastructure.Persistence;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Commands.UpdateDonorPerson
 {
-    public class UpdateDonorPersonCommandHandler : IRequestHandler<UpdateDonorPersonCommand, Unit>
+    public class UpdateDonorPersonCommandHandler : IRequestHandler<UpdateDonorPersonCommand, Result<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -12,7 +13,7 @@ namespace BloodBank.Application.Commands.UpdateDonorPerson
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(UpdateDonorPersonCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Unit>> Handle(UpdateDonorPersonCommand request, CancellationToken cancellationToken)
         {
             var donorPerson = await _unitOfWork.DonorPersons.GetByIdAsync(request.Id);
 
@@ -22,7 +23,7 @@ namespace BloodBank.Application.Commands.UpdateDonorPerson
 
             await _unitOfWork.CompleteAsync();
 
-            return Unit.Value;
+            return Result<Unit>.Success(Unit.Value);
         }
     }
 }

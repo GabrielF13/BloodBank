@@ -1,9 +1,4 @@
 ﻿using BloodBank.Core.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BloodBank.Infrastructure.Persistence
 {
@@ -12,6 +7,7 @@ namespace BloodBank.Infrastructure.Persistence
         IBloodStockRepository BloodStocks { get; }
         IDonorPersonRepository DonorPersons { get; }
         IDonateRepository Donates { get; }
+
         Task<int> CompleteAsync();
     }
 }

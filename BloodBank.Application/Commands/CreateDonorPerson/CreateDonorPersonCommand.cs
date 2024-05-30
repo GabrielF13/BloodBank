@@ -1,9 +1,10 @@
-﻿using BloodBank.Core.Enums;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Core.Enums;
 using MediatR;
 
 namespace BloodBank.Application.Commands.CreateDonorPerson
 {
-    public class CreateDonorPersonCommand : IRequest<int>
+    public class CreateDonorPersonCommand : IRequest<Result<int>>
     {
         public string FullName { get; set; }
         public string Email { get; set; }

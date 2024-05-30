@@ -52,9 +52,9 @@ namespace BloodBank.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateBloodStockCommand command)
         {
-            var id = await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            return Ok(id);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }
 }

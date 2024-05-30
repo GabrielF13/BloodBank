@@ -42,20 +42,17 @@ namespace BloodBank.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateDonorPersonCommand command)
         {
-            var id = await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            if (id == 0)
-                return BadRequest();
-
-            return CreatedAtAction(nameof(GetById), new { id }, command);
+            return result.IsSuccess ? Created(result.Message, result.Data) : BadRequest(result.Message);
         }
 
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateDonorPersonCommand command)
         {
-            await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            return NoContent();
+            return result.IsSuccess ? Created(result.Message, result.Data) : BadRequest(result.Message);
         }
 
         [HttpDelete("{id}")]
@@ -63,9 +60,9 @@ namespace BloodBank.API.Controllers
         {
             var command = new DeleteDonorPersonCommand(id);
 
-            await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            return NoContent();
+            return result.IsSuccess ? Created(result.Message, result.Data) : BadRequest(result.Message);
         }
     }
 }

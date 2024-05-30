@@ -1,11 +1,10 @@
-﻿using BloodBank.Core.Repositories;
+﻿using BloodBank.Application.Abstractions;
 using BloodBank.Infrastructure.Persistence;
 using MediatR;
-using System.Runtime.CompilerServices;
 
 namespace BloodBank.Application.Commands.UpdateBloodStock
 {
-    public class UpdateBloodStockCommandHandler : IRequestHandler<UpdateBloodStockCommand, Unit>
+    public class UpdateBloodStockCommandHandler : IRequestHandler<UpdateBloodStockCommand, Result<Unit>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,7 +13,7 @@ namespace BloodBank.Application.Commands.UpdateBloodStock
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Unit> Handle(UpdateBloodStockCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Unit>> Handle(UpdateBloodStockCommand request, CancellationToken cancellationToken)
         {
             var bloodStock = await _unitOfWork.BloodStocks.GetByIdAsync(request.Id);
 
@@ -22,7 +21,7 @@ namespace BloodBank.Application.Commands.UpdateBloodStock
 
             await _unitOfWork.CompleteAsync();
 
-            return Unit.Value;
+            return Result<Unit>.Success(Unit.Value);
         }
     }
 }

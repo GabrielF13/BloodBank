@@ -1,11 +1,11 @@
-﻿using BloodBank.Core.Entities;
-using BloodBank.Core.Repositories;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Core.Entities;
 using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Commands.CreateBloodStock
 {
-    public class CreateBloodStockCommandHandler : IRequestHandler<CreateBloodStockCommand, int>
+    public class CreateBloodStockCommandHandler : IRequestHandler<CreateBloodStockCommand, Result<int>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,7 +14,7 @@ namespace BloodBank.Application.Commands.CreateBloodStock
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> Handle(CreateBloodStockCommand request, CancellationToken cancellationToken)
+        public async Task<Result<int>> Handle(CreateBloodStockCommand request, CancellationToken cancellationToken)
         {
             var bloodStock = new BloodStock(request.BloodType, request.RhFactor, request.QuantityMl);
 
@@ -22,7 +22,7 @@ namespace BloodBank.Application.Commands.CreateBloodStock
 
             await _unitOfWork.CompleteAsync();
 
-            return bloodStock.Id;
+            return Result<int>.Success(bloodStock.Id);
         }
     }
 }

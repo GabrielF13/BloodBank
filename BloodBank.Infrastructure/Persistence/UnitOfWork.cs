@@ -1,5 +1,4 @@
 ﻿using BloodBank.Core.Repositories;
-using System.Runtime.CompilerServices;
 
 namespace BloodBank.Infrastructure.Persistence
 {
@@ -33,7 +32,7 @@ namespace BloodBank.Infrastructure.Persistence
         }
 
         protected virtual void Dispose(bool disposing)
-        { 
+        {
             if (disposing)
             {
                 _context.Dispose();

@@ -40,9 +40,9 @@ namespace BloodBank.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateDonateCommand command)
         {
-            var id = await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { id }, command);
+            return result.IsSuccess ? Created(result.Message, result.Data) : BadRequest(result.Message);
         }
     }
 }

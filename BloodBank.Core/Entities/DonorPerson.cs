@@ -25,6 +25,7 @@ namespace BloodBank.Core.Entities
         public BloodType BloodType { get; private set; }
         public RHFactor RhFactor { get; private set; }
         public bool Active { get; private set; }
+
         //public List<Donation> Donations { get; set; }
         public Address Address { get; private set; }
 
