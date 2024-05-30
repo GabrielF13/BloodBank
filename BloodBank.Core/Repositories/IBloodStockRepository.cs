@@ -9,7 +9,7 @@ namespace BloodBank.Core.Repositories
 
         Task<BloodStock> GetByIdAsync(int id);
 
-        Task<List<BloodStock>> GetByBloodTypeAsync(BloodType bloodType);
+        Task<BloodStock> GetByBloodTypeAsync(BloodType bloodType, RHFactor rHFactor);
 
         Task AddAsync(BloodStock bloodStock);
 

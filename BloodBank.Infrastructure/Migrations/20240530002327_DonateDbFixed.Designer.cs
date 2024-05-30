@@ -4,6 +4,7 @@ using BloodBank.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloodBank.Infrastructure.Migrations
 {
     [DbContext(typeof(BloodBankDbContext))]
-    partial class BloodBankDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240530002327_DonateDbFixed")]
+    partial class DonateDbFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,10 +96,15 @@ namespace BloodBank.Infrastructure.Migrations
                     b.Property<int>("DonorId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DonorPersonId")
+                        .HasColumnType("int");
+
                     b.Property<int>("QuantityMl")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DonorPersonId");
 
                     b.ToTable("Donatiton");
                 });
@@ -152,10 +160,19 @@ namespace BloodBank.Infrastructure.Migrations
                     b.Navigation("DonorPerson");
                 });
 
+            modelBuilder.Entity("BloodBank.Core.Entities.Donation", b =>
+                {
+                    b.HasOne("BloodBank.Core.Entities.DonorPerson", null)
+                        .WithMany("Donations")
+                        .HasForeignKey("DonorPersonId");
+                });
+
             modelBuilder.Entity("BloodBank.Core.Entities.DonorPerson", b =>
                 {
                     b.Navigation("Address")
                         .IsRequired();
+
+                    b.Navigation("Donations");
                 });
 #pragma warning restore 612, 618
         }

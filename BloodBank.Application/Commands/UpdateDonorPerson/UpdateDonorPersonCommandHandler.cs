@@ -1,24 +1,26 @@
-﻿using BloodBank.Core.Repositories;
+﻿using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Commands.UpdateDonorPerson
 {
     public class UpdateDonorPersonCommandHandler : IRequestHandler<UpdateDonorPersonCommand, Unit>
     {
-        private readonly IDonorPersonRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateDonorPersonCommandHandler(IDonorPersonRepository repository)
+        public UpdateDonorPersonCommandHandler(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(UpdateDonorPersonCommand request, CancellationToken cancellationToken)
         {
-            var donorPerson = await _repository.GetByIdAsync(request.Id);
+            var donorPerson = await _unitOfWork.DonorPersons.GetByIdAsync(request.Id);
 
             donorPerson.Update(request.FullName, request.Email, request.BirthDate, request.Gender, request.Weight, request.BloodType, request.RhFactor);
 
-            await _repository.SaveChangesAsync();
+            await _unitOfWork.DonorPersons.SaveChangesAsync();
+
+            await _unitOfWork.CompleteAsync();
 
             return Unit.Value;
         }

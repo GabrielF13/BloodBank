@@ -40,9 +40,9 @@ namespace BloodBank.API.Controllers
         }
 
         [HttpGet("getByBloodTyp/{bloodType}")]
-        public async Task<IActionResult> GetByBloodType(BloodType bloodType)
+        public async Task<IActionResult> GetByBloodType(BloodType bloodType, RHFactor rHFactor)
         {
-            var query = new GetBloodStockByBloodTypeQuery(bloodType);
+            var query = new GetBloodStockByBloodTypeQuery(bloodType, rHFactor);
 
             var viewModel = await _mediator.Send(query);
 

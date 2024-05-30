@@ -1,22 +1,26 @@
 ﻿using BloodBank.Core.Repositories;
+using BloodBank.Infrastructure.Persistence;
 using MediatR;
+using System.Runtime.CompilerServices;
 
 namespace BloodBank.Application.Commands.UpdateBloodStock
 {
     public class UpdateBloodStockCommandHandler : IRequestHandler<UpdateBloodStockCommand, Unit>
     {
-        private readonly IBloodStockRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateBloodStockCommandHandler(IBloodStockRepository repository)
+        public UpdateBloodStockCommandHandler(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(UpdateBloodStockCommand request, CancellationToken cancellationToken)
         {
-            var bloodStock = await _repository.GetByIdAsync(request.Id);
+            var bloodStock = await _unitOfWork.BloodStocks.GetByIdAsync(request.Id);
 
             bloodStock.Donate(request.QuantityMl);
+
+            await _unitOfWork.CompleteAsync();
 
             return Unit.Value;
         }

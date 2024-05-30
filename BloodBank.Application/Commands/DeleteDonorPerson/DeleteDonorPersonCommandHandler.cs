@@ -1,24 +1,24 @@
-﻿using BloodBank.Core.Repositories;
+﻿using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Commands.DeleteDonorPerson
 {
     public class DeleteDonorPersonCommandHandler : IRequestHandler<DeleteDonorPersonCommand, Unit>
     {
-        private readonly IDonorPersonRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteDonorPersonCommandHandler(IDonorPersonRepository repository)
+        public DeleteDonorPersonCommandHandler(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(DeleteDonorPersonCommand request, CancellationToken cancellationToken)
         {
-            var donorPerson = _repository.GetByIdAsync(request.Id).Result;
+            var donorPerson = _unitOfWork.DonorPersons.GetByIdAsync(request.Id).Result;
 
             donorPerson.Delete(false);
 
-            await _repository.SaveChangesAsync();
+            await _unitOfWork.CompleteAsync();
 
             return Unit.Value;
         }

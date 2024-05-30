@@ -25,13 +25,13 @@ namespace BloodBank.Infrastructure.Persistence.Repositories
 
         public async Task<DonorPerson> GetByEmailAsync(string email)
         {
-            return await _context.DonorPerson.FirstAsync(x => x.Email == email);
+            return await _context.DonorPerson.SingleOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task AddAsync(DonorPerson donorPerson)
         {
             await _context.DonorPerson.AddAsync(donorPerson);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()

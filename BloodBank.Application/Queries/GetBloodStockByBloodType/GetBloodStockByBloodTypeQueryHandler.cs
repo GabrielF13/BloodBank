@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BloodBank.Application.Queries.GetBloodStockByBloodType
 {
-    public class GetBloodStockByBloodTypeQueryHandler : IRequestHandler<GetBloodStockByBloodTypeQuery, List<BloodStockViewModel>>
+    public class GetBloodStockByBloodTypeQueryHandler : IRequestHandler<GetBloodStockByBloodTypeQuery, BloodStockViewModel>
     {
         private readonly IBloodStockRepository _repository;
 
@@ -13,12 +13,13 @@ namespace BloodBank.Application.Queries.GetBloodStockByBloodType
             _repository = repository;
         }
 
-        public async Task<List<BloodStockViewModel>> Handle(GetBloodStockByBloodTypeQuery request, CancellationToken cancellationToken)
+        public async Task<BloodStockViewModel> Handle(GetBloodStockByBloodTypeQuery request, CancellationToken cancellationToken)
         {
-            var bloodStock = await _repository.GetByBloodTypeAsync(request.BloodType);
+            var bloodStock = await _repository.GetByBloodTypeAsync(request.BloodType, request.RHFactor);
 
-            var bloodStockViewModel = bloodStock.Select(
-                p => new BloodStockViewModel(p.BloodType, p.RhFactor, p.QuantityMl, p.Id)).ToList();
+            var bloodStockViewModel = new BloodStockViewModel(
+                bloodStock.BloodType, bloodStock.RhFactor, bloodStock.QuantityMl, bloodStock.Id
+                );
 
             return bloodStockViewModel;
         }

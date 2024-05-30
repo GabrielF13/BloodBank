@@ -11,11 +11,11 @@ namespace BloodBank.Infrastructure.Persistence.Configurations
             builder
                 .HasKey(x => x.Id);
 
-            builder
-                .HasMany(x => x.Donations)
-                .WithOne()
-                .HasForeignKey(x => x.DonorId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder
+            //    .HasMany(x => x.Donations)
+            //    .WithOne()
+            //    .HasForeignKey(x => x.DonorId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(d => d.Address)
                .WithOne(a => a.DonorPerson)

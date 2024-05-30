@@ -24,15 +24,15 @@ namespace BloodBank.Infrastructure.Persistence.Repositories
             return await _context.BloodStock.SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<List<BloodStock>> GetByBloodTypeAsync(BloodType bloodType)
+        public async Task<BloodStock> GetByBloodTypeAsync(BloodType bloodType, RHFactor rHFactor)
         {
-            return await _context.BloodStock.Where(b => b.BloodType == bloodType).ToListAsync();
+            return await _context.BloodStock.SingleOrDefaultAsync(b => b.BloodType == bloodType && b.RhFactor == rHFactor);
         }
 
         public async Task AddAsync(BloodStock bloodStock)
         {
             await _context.BloodStock.AddAsync(bloodStock);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()

@@ -14,7 +14,7 @@ namespace BloodBank.Core.Entities
             BloodType = bloodType;
             RhFactor = rhFactor;
             Active = true;
-            Donations = new List<Donation>();
+            //Donations = new List<Donation>();
         }
 
         public string FullName { get; private set; }
@@ -25,7 +25,7 @@ namespace BloodBank.Core.Entities
         public BloodType BloodType { get; private set; }
         public RHFactor RhFactor { get; private set; }
         public bool Active { get; private set; }
-        public List<Donation> Donations { get; set; }
+        //public List<Donation> Donations { get; set; }
         public Address Address { get; private set; }
 
         public void Update(string fullName, string email, DateTime birthDate, string gender, double weight, BloodType bloodType, RHFactor rhFactor)

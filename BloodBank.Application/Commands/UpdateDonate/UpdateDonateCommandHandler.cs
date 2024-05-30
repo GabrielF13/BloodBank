@@ -1,20 +1,21 @@
 ﻿using BloodBank.Core.Repositories;
+using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Commands.UpdateDonate
 {
     public class UpdateDonateCommandHandler : IRequestHandler<UpdateDonateCommand, Unit>
     {
-        private readonly IDonateRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UpdateDonateCommandHandler(IDonateRepository repository)
+        public UpdateDonateCommandHandler(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(UpdateDonateCommand request, CancellationToken cancellationToken)
         {
-            var donate = await _repository.GetById(request.Id);
+            var donate = await _unitOfWork.Donates.GetById(request.Id);
 
             return Unit.Value;
         }

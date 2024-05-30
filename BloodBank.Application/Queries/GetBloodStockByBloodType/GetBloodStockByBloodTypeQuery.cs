@@ -4,13 +4,15 @@ using MediatR;
 
 namespace BloodBank.Application.Queries.GetBloodStockByBloodType
 {
-    public class GetBloodStockByBloodTypeQuery : IRequest<List<BloodStockViewModel>>
+    public class GetBloodStockByBloodTypeQuery : IRequest<BloodStockViewModel>
     {
-        public GetBloodStockByBloodTypeQuery(BloodType bloodType)
+        public GetBloodStockByBloodTypeQuery(BloodType bloodType, RHFactor rhFactor)
         {
             BloodType = bloodType;
+            RHFactor = rhFactor;
         }
 
         public BloodType BloodType { get; set; }
+        public RHFactor RHFactor { get; set; }
     }
 }

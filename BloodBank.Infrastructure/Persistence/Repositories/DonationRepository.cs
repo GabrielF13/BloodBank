@@ -31,7 +31,7 @@ namespace BloodBank.Infrastructure.Persistence.Repositories
         public async Task AddAsync(Donation donation)
         {
             await _context.AddAsync(donation);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
         }
 
         public async Task SaveChangesAsync()
