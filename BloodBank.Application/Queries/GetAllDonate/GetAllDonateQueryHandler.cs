@@ -1,26 +1,27 @@
-﻿using BloodBank.Application.ViewModels;
-using BloodBank.Core.Repositories;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Application.ViewModels;
+using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Queries.GetAllDonate
 {
-    public class GetAllDonateQueryHandler : IRequestHandler<GetAllDonateQuery, List<DonationViewModel>>
+    public class GetAllDonateQueryHandler : IRequestHandler<GetAllDonateQuery, Result<List<DonationViewModel>>>
     {
-        private readonly IDonateRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetAllDonateQueryHandler(IDonateRepository repository)
+        public GetAllDonateQueryHandler(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<List<DonationViewModel>> Handle(GetAllDonateQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<DonationViewModel>>> Handle(GetAllDonateQuery request, CancellationToken cancellationToken)
         {
-            var donates = await _repository.GetAll();
+            var donates = await _unitOfWork.Donates.GetAll();
 
             var donateViewModels = donates.Select(
                 p => new DonationViewModel(p.Id, p.DonorId, p.DateDonation, p.QuantityMl)).ToList();
 
-            return donateViewModels;
+            return Result<List<DonationViewModel>>.Success(donateViewModels);
         }
     }
 }

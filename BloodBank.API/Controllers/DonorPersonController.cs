@@ -24,9 +24,9 @@ namespace BloodBank.API.Controllers
         {
             var GetAllDonorPersons = new GetAllDonorPersonsQuery();
 
-            var viewModels = _mediator.Send(GetAllDonorPersons);
+            var result = await _mediator.Send(GetAllDonorPersons);
 
-            return Ok(viewModels.Result);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("{id}")]
@@ -34,9 +34,9 @@ namespace BloodBank.API.Controllers
         {
             var command = new GetDonorPersonByIdQuery(id);
 
-            var viewModel = await _mediator.Send(command);
+            var result = await _mediator.Send(command);
 
-            return Ok(viewModel);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost]

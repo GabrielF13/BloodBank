@@ -22,9 +22,9 @@ namespace BloodBank.API.Controllers
         {
             var getAllDonates = new GetAllDonateQuery();
 
-            var viewModels = await _mediator.Send(getAllDonates);
+            var result = await _mediator.Send(getAllDonates);
 
-            return Ok(viewModels);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("{id}")]
@@ -32,9 +32,9 @@ namespace BloodBank.API.Controllers
         {
             var donate = new GetDonateByIdQuery(id);
 
-            var viewModel = await _mediator.Send(donate);
+            var result = await _mediator.Send(donate);
 
-            return Ok(viewModel);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost]

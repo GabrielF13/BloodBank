@@ -1,10 +1,11 @@
-﻿using BloodBank.Application.ViewModels;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Application.ViewModels;
 using BloodBank.Core.Enums;
 using MediatR;
 
 namespace BloodBank.Application.Queries.GetBloodStockByBloodType
 {
-    public class GetBloodStockByBloodTypeQuery : IRequest<BloodStockViewModel>
+    public class GetBloodStockByBloodTypeQuery : IRequest<Result<BloodStockViewModel>>
     {
         public GetBloodStockByBloodTypeQuery(BloodType bloodType, RHFactor rhFactor)
         {

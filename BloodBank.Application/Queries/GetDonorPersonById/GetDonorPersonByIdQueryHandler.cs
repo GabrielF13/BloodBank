@@ -1,24 +1,25 @@
-﻿using BloodBank.Application.ViewModels;
-using BloodBank.Core.Repositories;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Application.ViewModels;
+using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Queries.GetDonorPersonById
 {
-    public class GetDonorPersonByIdQueryHandler : IRequestHandler<GetDonorPersonByIdQuery, DonorPersonViewModel>
+    public class GetDonorPersonByIdQueryHandler : IRequestHandler<GetDonorPersonByIdQuery, Result<DonorPersonViewModel>>
     {
-        private readonly IDonorPersonRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetDonorPersonByIdQueryHandler(IDonorPersonRepository repository)
+        public GetDonorPersonByIdQueryHandler(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<DonorPersonViewModel> Handle(GetDonorPersonByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Result<DonorPersonViewModel>> Handle(GetDonorPersonByIdQuery request, CancellationToken cancellationToken)
         {
-            var person = await _repository.GetByIdAsync(request.Id);
+            var person = await _unitOfWork.DonorPersons.GetByIdAsync(request.Id);
 
             if (person == null)
-                return null;
+                return Result<DonorPersonViewModel>.NotFound("Usuario não encontrado");
 
             var donorPersonviewModel = new DonorPersonViewModel
                 (
@@ -32,7 +33,7 @@ namespace BloodBank.Application.Queries.GetDonorPersonById
                     person.RhFactor
                 );
 
-            return donorPersonviewModel;
+            return Result<DonorPersonViewModel>.Success(donorPersonviewModel);
         }
     }
 }

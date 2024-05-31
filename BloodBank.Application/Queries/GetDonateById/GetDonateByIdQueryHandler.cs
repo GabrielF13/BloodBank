@@ -1,28 +1,29 @@
-﻿using BloodBank.Application.ViewModels;
-using BloodBank.Core.Repositories;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Application.ViewModels;
+using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Queries.GetDonateById
 {
-    public class GetDonateByIdQueryHandler : IRequestHandler<GetDonateByIdQuery, DonationViewModel>
+    public class GetDonateByIdQueryHandler : IRequestHandler<GetDonateByIdQuery, Result<DonationViewModel>>
     {
-        private readonly IDonateRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetDonateByIdQueryHandler(IDonateRepository repository)
+        public GetDonateByIdQueryHandler(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<DonationViewModel> Handle(GetDonateByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Result<DonationViewModel>> Handle(GetDonateByIdQuery request, CancellationToken cancellationToken)
         {
-            var donate = await _repository.GetById(request.Id);
+            var donate = await _unitOfWork.Donates.GetById(request.Id);
 
             if (donate == null)
-                return null;
+                return Result<DonationViewModel>.NotFound("Doação não encontrada");
 
             var donateViewModel = new DonationViewModel(donate.Id, donate.DonorId, donate.DateDonation, donate.QuantityMl);
 
-            return donateViewModel;
+            return Result<DonationViewModel>.Success(donateViewModel);
         }
     }
 }

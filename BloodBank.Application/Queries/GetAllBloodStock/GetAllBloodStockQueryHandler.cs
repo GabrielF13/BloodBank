@@ -1,26 +1,27 @@
-﻿using BloodBank.Application.ViewModels;
-using BloodBank.Core.Repositories;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Application.ViewModels;
+using BloodBank.Infrastructure.Persistence;
 using MediatR;
 
 namespace BloodBank.Application.Queries.GetAllBloodStock
 {
-    public class GetAllBloodStockQueryHandler : IRequestHandler<GetAllBloodStockQuery, List<BloodStockViewModel>>
+    public class GetAllBloodStockQueryHandler : IRequestHandler<GetAllBloodStockQuery, Result<List<BloodStockViewModel>>>
     {
-        private readonly IBloodStockRepository _repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public GetAllBloodStockQueryHandler(IBloodStockRepository repository)
+        public GetAllBloodStockQueryHandler(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
-        public async Task<List<BloodStockViewModel>> Handle(GetAllBloodStockQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<BloodStockViewModel>>> Handle(GetAllBloodStockQuery request, CancellationToken cancellationToken)
         {
-            var bloodStocks = await _repository.GetAllAsync();
+            var bloodStocks = await unitOfWork.BloodStocks.GetAllAsync();
 
             var bloodStockViewModel = bloodStocks.Select(
                 p => new BloodStockViewModel(p.BloodType, p.RhFactor, p.QuantityMl, p.Id)).ToList();
 
-            return bloodStockViewModel;
+            return Result<List<BloodStockViewModel>>.Success(bloodStockViewModel);
         }
     }
 }

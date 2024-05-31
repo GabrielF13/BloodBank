@@ -1,10 +1,11 @@
-﻿using BloodBank.Application.ViewModels;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Application.ViewModels;
 using BloodBank.Core.Repositories;
 using MediatR;
 
 namespace BloodBank.Application.Queries.GetBloodStockByBloodType
 {
-    public class GetBloodStockByBloodTypeQueryHandler : IRequestHandler<GetBloodStockByBloodTypeQuery, BloodStockViewModel>
+    public class GetBloodStockByBloodTypeQueryHandler : IRequestHandler<GetBloodStockByBloodTypeQuery, Result<BloodStockViewModel>>
     {
         private readonly IBloodStockRepository _repository;
 
@@ -13,7 +14,7 @@ namespace BloodBank.Application.Queries.GetBloodStockByBloodType
             _repository = repository;
         }
 
-        public async Task<BloodStockViewModel> Handle(GetBloodStockByBloodTypeQuery request, CancellationToken cancellationToken)
+        public async Task<Result<BloodStockViewModel>> Handle(GetBloodStockByBloodTypeQuery request, CancellationToken cancellationToken)
         {
             var bloodStock = await _repository.GetByBloodTypeAsync(request.BloodType, request.RHFactor);
 
@@ -21,7 +22,7 @@ namespace BloodBank.Application.Queries.GetBloodStockByBloodType
                 bloodStock.BloodType, bloodStock.RhFactor, bloodStock.QuantityMl, bloodStock.Id
                 );
 
-            return bloodStockViewModel;
+            return Result<BloodStockViewModel>.Success(bloodStockViewModel);
         }
     }
 }

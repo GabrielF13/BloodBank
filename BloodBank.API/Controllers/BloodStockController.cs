@@ -20,13 +20,13 @@ namespace BloodBank.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             var getAllBloodStock = new GetAllBloodStockQuery();
 
-            var viewModel = _mediator.Send(getAllBloodStock);
+            var result = await _mediator.Send(getAllBloodStock);
 
-            return Ok(viewModel.Result);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("{id}")]
@@ -34,9 +34,9 @@ namespace BloodBank.API.Controllers
         {
             var query = new GetBloodStockByIdQuery(id);
 
-            var viewModel = await _mediator.Send(query);
+            var result = await _mediator.Send(query);
 
-            return Ok(viewModel);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("getByBloodTyp/{bloodType}")]
@@ -44,9 +44,9 @@ namespace BloodBank.API.Controllers
         {
             var query = new GetBloodStockByBloodTypeQuery(bloodType, rHFactor);
 
-            var viewModel = await _mediator.Send(query);
+            var result = await _mediator.Send(query);
 
-            return Ok(viewModel);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost]
