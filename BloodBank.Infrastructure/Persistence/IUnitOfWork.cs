@@ -7,6 +7,7 @@ namespace BloodBank.Infrastructure.Persistence
         IBloodStockRepository BloodStocks { get; }
         IDonorPersonRepository DonorPersons { get; }
         IDonateRepository Donates { get; }
+        IAdressRepository Adresses { get; }
 
         Task<int> CompleteAsync();
     }

@@ -1,5 +1,6 @@
 using BloodBank.Application.Queries.GetAllDonorPersons;
 using BloodBank.Core.Repositories;
+using BloodBank.Infrastructure.CEP;
 using BloodBank.Infrastructure.Persistence;
 using BloodBank.Infrastructure.Persistence.Repositories;
 using MediatR;
@@ -14,12 +15,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpClient<ViaCEP>();
+
 var connectionString = builder.Configuration.GetConnectionString("BloodBankCs");
 builder.Services.AddDbContext<BloodBankDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IDonorPersonRepository, DonorPersonRepository>();
 builder.Services.AddScoped<IBloodStockRepository, BloodStockRepository>();
 builder.Services.AddScoped<IDonateRepository, DonationRepository>();
+builder.Services.AddScoped<IAdressRepository, AddressRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddMediatR(typeof(GetAllDonorPersonsQuery));

@@ -17,5 +17,13 @@
         public string State { get; private set; }
         public string ZipCode { get; private set; }
         public DonorPerson DonorPerson { get; private set; }
+
+        public void SetAdress(string zipCode, string publicPlace, string state, string city)
+        {
+            ZipCode = zipCode;
+            PublicPlace = publicPlace;
+            State = state;
+            City = city;
+        }
     }
 }
