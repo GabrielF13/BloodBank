@@ -15,7 +15,7 @@ namespace BloodBank.Application.Commands.DeleteDonorPerson
 
         public async Task<Result<Unit>> Handle(DeleteDonorPersonCommand request, CancellationToken cancellationToken)
         {
-            var donorPerson = _unitOfWork.DonorPersons.GetByIdAsync(request.Id).Result;
+            var donorPerson = await _unitOfWork.DonorPersons.GetByIdAsync(request.Id);
 
             donorPerson.Delete(false);
 

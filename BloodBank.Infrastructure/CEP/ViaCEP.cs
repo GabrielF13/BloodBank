@@ -17,7 +17,7 @@ namespace BloodBank.Infrastructure.CEP
             _httpClient = httpClient;
         }
 
-        public async Task<AdressCEP> ObterEnderecoPorCepAsync(string cep)
+        public async Task<Address> ObterEnderecoPorCepAsync(string cep)
         {
             var response = await _httpClient.GetAsync($"https://viacep.com.br/ws/{cep}/json/");
             response.EnsureSuccessStatusCode();
@@ -25,7 +25,9 @@ namespace BloodBank.Infrastructure.CEP
             var content = await response.Content.ReadAsStringAsync();
             var endereco = JsonConvert.DeserializeObject<AdressCEP>(content);
 
-            return endereco;
+            var adress = new Address(0, endereco.Logradouro, endereco.Localidade, endereco.Uf, endereco.Cep);
+
+            return adress;
         }
     }
 }

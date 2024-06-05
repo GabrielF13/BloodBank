@@ -37,7 +37,7 @@ namespace BloodBank.Application.Commands.CreateDonate
 
             var donate = new Donation(person.Id, request.QuantityMl);
 
-            var stock = await _unitOfWork.BloodStocks.GetByBloodTypeAsync(person.BloodType, person.RhFactor);
+            BloodStock? stock = await _unitOfWork.BloodStocks.GetByBloodTypeAsync(person.BloodType, person.RhFactor);
 
             stock.Donate(request.QuantityMl);
 

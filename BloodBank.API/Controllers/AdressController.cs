@@ -1,5 +1,6 @@
 ﻿using BloodBank.Application.Commands.CreateAdress;
 using BloodBank.Infrastructure.CEP;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,10 +13,12 @@ namespace BloodBank.API.Controllers
     public class AdressController : ControllerBase
     {
         private readonly ViaCEP _viaCEP;
+        private readonly IMediator _mediator;
 
-        public AdressController(ViaCEP viaCEP)
+        public AdressController(ViaCEP viaCEP, IMediator mediator)
         {
             _viaCEP = viaCEP;
+            _mediator = mediator;
         }
 
         [HttpGet("{cep}")]
@@ -34,14 +37,9 @@ namespace BloodBank.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateAdressCommand command)
         {
-            var adress = await _viaCEP.ObterEnderecoPorCepAsync(command.ZipCode);
+            var result = await _mediator.Send(command);
 
-            if (adress == null)
-            {
-
-            }
-
-            return Ok();
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
     }
