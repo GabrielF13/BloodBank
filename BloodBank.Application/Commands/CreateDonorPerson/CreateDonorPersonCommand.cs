@@ -11,6 +11,8 @@ namespace BloodBank.Application.Commands.CreateDonorPerson
         public DateTime BirthDate { get; set; }
         public string Gender { get; set; }
         public double Weight { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
         public BloodType BloodType { get; set; }
         public RHFactor RhFactor { get; set; }
     }

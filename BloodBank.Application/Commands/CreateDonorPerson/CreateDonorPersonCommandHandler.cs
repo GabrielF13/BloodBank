@@ -16,7 +16,10 @@ namespace BloodBank.Application.Commands.CreateDonorPerson
 
         public async Task<Result<int>> Handle(CreateDonorPersonCommand request, CancellationToken cancellationToken)
         {
-            var donorPerson = new DonorPerson(request.FullName, request.Email, request.BirthDate, request.Gender, request.Weight, request.BloodType, request.RhFactor);
+
+            var passwordHash = _unitOfWork.AuthService.ComputeSha256Hash(request.Password);
+
+            var donorPerson = new DonorPerson(request.FullName, request.Email, request.BirthDate, request.Gender, request.Weight, request.BloodType, request.RhFactor, passwordHash, request.Role);
 
             var emailExists = await _unitOfWork.DonorPersons.GetByEmailAsync(donorPerson.Email);
 

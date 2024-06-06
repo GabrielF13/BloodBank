@@ -1,4 +1,5 @@
 ﻿using BloodBank.Core.Repositories;
+using BloodBank.Core.Services;
 
 namespace BloodBank.Infrastructure.Persistence
 {
@@ -21,6 +22,9 @@ namespace BloodBank.Infrastructure.Persistence
         public IDonateRepository Donates { get; }
 
         public IAdressRepository Adresses { get; }
+
+        public IAuthService AuthService
+        { get; }
 
         public async Task<int> CompleteAsync()
         {

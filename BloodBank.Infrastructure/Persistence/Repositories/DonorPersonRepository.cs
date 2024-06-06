@@ -28,6 +28,11 @@ namespace BloodBank.Infrastructure.Persistence.Repositories
             return await _context.DonorPerson.SingleOrDefaultAsync(x => x.Email == email);
         }
 
+        public async Task<DonorPerson> GetByEmailAndPasswordAsync(string email, string password)
+        {
+            return await _context.DonorPerson.SingleOrDefaultAsync(x => x.Email == email && x.Password == password);
+        }
+
         public async Task AddAsync(DonorPerson donorPerson)
         {
             await _context.DonorPerson.AddAsync(donorPerson);

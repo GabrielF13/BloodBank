@@ -4,7 +4,7 @@ namespace BloodBank.Core.Entities
 {
     public class DonorPerson : BaseEntity
     {
-        public DonorPerson(string fullName, string email, DateTime birthDate, string gender, double weight, BloodType bloodType, RHFactor rhFactor)
+        public DonorPerson(string fullName, string email, DateTime birthDate, string gender, double weight, BloodType bloodType, RHFactor rhFactor, string password, string role)
         {
             FullName = fullName;
             Email = email;
@@ -14,6 +14,8 @@ namespace BloodBank.Core.Entities
             BloodType = bloodType;
             RhFactor = rhFactor;
             Active = true;
+            Password = password;
+            Role = role;
             //Donations = new List<Donation>();
         }
 
@@ -24,6 +26,8 @@ namespace BloodBank.Core.Entities
         public double Weight { get; private set; }
         public BloodType BloodType { get; private set; }
         public RHFactor RhFactor { get; private set; }
+        public string Password { get; private set; }
+        public string Role { get; private set; }
         public bool Active { get; private set; }
 
         //public List<Donation> Donations { get; set; }

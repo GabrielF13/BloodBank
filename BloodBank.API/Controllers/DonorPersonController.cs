@@ -1,5 +1,7 @@
-﻿using BloodBank.Application.Commands.CreateDonorPerson;
+﻿using BloodBank.Application.Abstractions;
+using BloodBank.Application.Commands.CreateDonorPerson;
 using BloodBank.Application.Commands.DeleteDonorPerson;
+using BloodBank.Application.Commands.LoginUser;
 using BloodBank.Application.Commands.UpdateDonorPerson;
 using BloodBank.Application.Queries.GetAllDonorPersons;
 using BloodBank.Application.Queries.GetDonorPersonById;
@@ -60,6 +62,14 @@ namespace BloodBank.API.Controllers
         {
             var command = new DeleteDonorPersonCommand(id);
 
+            var result = await _mediator.Send(command);
+
+            return result.IsSuccess ? Created(result.Message, result.Data) : BadRequest(result.Message);
+        }
+
+        [HttpPut("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+        {
             var result = await _mediator.Send(command);
 
             return result.IsSuccess ? Created(result.Message, result.Data) : BadRequest(result.Message);

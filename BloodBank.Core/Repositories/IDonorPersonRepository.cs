@@ -9,6 +9,7 @@ namespace BloodBank.Core.Repositories
         Task<DonorPerson> GetByIdAsync(int id);
 
         Task<DonorPerson> GetByEmailAsync(string email);
+        Task<DonorPerson> GetByEmailAndPasswordAsync(string email, string password);
 
         Task AddAsync(DonorPerson donorPerson);
 
