@@ -9,7 +9,6 @@ namespace BloodBank.Infrastructure.Persistence
         IDonorPersonRepository DonorPersons { get; }
         IDonateRepository Donates { get; }
         IAdressRepository Adresses { get; }
-        IAuthService AuthService { get; }
 
         Task<int> CompleteAsync();
     }

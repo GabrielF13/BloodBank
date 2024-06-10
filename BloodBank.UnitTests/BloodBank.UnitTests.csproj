@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BloodBank.Application\BloodBank.Application.csproj" />
     <ProjectReference Include="..\BloodBank.Core\BloodBank.Core.csproj" />
   </ItemGroup>
